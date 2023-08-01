@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  python: 
+    init: true
+    image: anielsen/python3.11.4:latest
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DISPLAY
+    volumes: 
+      # passing through this file allows opening windows from the container in your host computer
+      - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+      - "$HOME/.Xauthority:/home/python/.Xauthority:rw"
+      - "/data:/data"
+    network_mode: "host"
+    command: 
+      - ipython3
